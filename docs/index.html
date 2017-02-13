@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/label.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <link rel="stylesheet" href="http://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.css" />
+        <script src="js/leaflet.js"></script>
+        <script src="js/OSMBuildings-Leaflet.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/label.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="http://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <style>
+        #map {
+            width: 1158px;
+            height: 672px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="data/json_GermanyAL40.js"></script>
+        <script src="data/json_onleihen1701031.js"></script>
+        <script>
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var feature_group = new L.featureGroup([]);
+        var bounds_group = new L.featureGroup([]);
+        var raster_group = new L.LayerGroup([]);
+        var basemap0 = L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Mapdata: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        var initialOrder = new Array();
+        var layerOrder = new Array();
+        function stackLayers() {
+            for (index = 0; index < initialOrder.length; index++) {
+                map.removeLayer(initialOrder[index]);
+                map.addLayer(initialOrder[index]);
+            }
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function restackLayers() {
+            for (index = 0; index < layerOrder.length; index++) {
+                layerOrder[index].bringToFront();
+            }
+        }
+        layerControl = L.control.layers({},{},{collapsed:false});
+        function pop_GermanyAL40(feature, layer) {
+        }
+
+        function doStyleGermanyAL40(feature) {
+			switch (feature.properties.NAME) {
+                case 'Baden-WÃ¼rttemberg':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#1f78b4',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Berlin':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#15de73',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Brandenburg':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#88cc73',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Bremen':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Free State of Bavaria':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#bcf17b',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Hamburg':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Hesse':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#dee72a',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Lower Saxony':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Mecklenburg-Vorpommern':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'North Rhine-Westphalia':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#ff7f00',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Rhineland-Palatinate':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#ff7f00',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Saarland':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#1f78b4',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Saxony':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#1f78b4',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Saxony-Anhalt':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Schleswig-Holstein':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                case 'Thuringia':
+                    return {
+                    weight: '1.04',
+                    fillColor: '#e31a1c',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+                default:
+                    return {
+                    weight: '1.04',
+                    fillColor: '#32b1ca',
+                    color: '#000000',
+                    dashArray: '',
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    opacity: '0.5',
+                    fillOpacity: '0.5',
+                };
+                break;
+
+            }
+        }
+        var json_GermanyAL40JSON = new L.geoJson(json_GermanyAL40, {
+            onEachFeature: pop_GermanyAL40,
+            style: doStyleGermanyAL40
+        });
+        layerOrder[layerOrder.length] = json_GermanyAL40JSON;
+        bounds_group.addLayer(json_GermanyAL40JSON);
+        initialOrder[initialOrder.length] = json_GermanyAL40JSON;
+        feature_group.addLayer(json_GermanyAL40JSON);
+        function pop_onleihen1701031(feature, layer) {
+            var popupContent = '<table><tr><th scope="row">UID</th><td>' + (feature.properties['UID'] !== null ? Autolinker.link(String(feature.properties['UID'])) : '') + '</td></tr><tr><th scope="row">Bundesland</th><td>' + (feature.properties['Bundesland'] !== null ? Autolinker.link(String(feature.properties['Bundesland'])) : '') + '</td></tr><tr><th scope="row">Stadt</th><td>' + (feature.properties['Stadt'] !== null ? Autolinker.link(String(feature.properties['Stadt'])) : '') + '</td></tr><tr><th scope="row">Stadtbibli</th><td>' + (feature.properties['Stadtbibli'] !== null ? Autolinker.link(String(feature.properties['Stadtbibli'])) : '') + '</td></tr><tr><th scope="row">Verbundlin</th><td>' + (feature.properties['Verbundlin'] !== null ? Autolinker.link(String(feature.properties['Verbundlin'])) : '') + '</td></tr><tr><th scope="row">VB</th><td>' + (feature.properties['VB'] !== null ? Autolinker.link(String(feature.properties['VB'])) : '') + '</td></tr><tr><th scope="row">Kinderbibl</th><td>' + (feature.properties['Kinderbibl'] !== null ? Autolinker.link(String(feature.properties['Kinderbibl'])) : '') + '</td></tr><tr><th scope="row">Jugendbibl</th><td>' + (feature.properties['Jugendbibl'] !== null ? Autolinker.link(String(feature.properties['Jugendbibl'])) : '') + '</td></tr><tr><th scope="row">Schule & L</th><td>' + (feature.properties['Schule & L'] !== null ? Autolinker.link(String(feature.properties['Schule & L'])) : '') + '</td></tr><tr><th scope="row">Sachmedien</th><td>' + (feature.properties['Sachmedien'] !== null ? Autolinker.link(String(feature.properties['Sachmedien'])) : '') + '</td></tr><tr><th scope="row">Belletrist</th><td>' + (feature.properties['Belletrist'] !== null ? Autolinker.link(String(feature.properties['Belletrist'])) : '') + '</td></tr><tr><th scope="row">Englische</th><td>' + (feature.properties['Englische'] !== null ? Autolinker.link(String(feature.properties['Englische'])) : '') + '</td></tr><tr><th scope="row">Musik</th><td>' + (feature.properties['Musik'] !== null ? Autolinker.link(String(feature.properties['Musik'])) : '') + '</td></tr><tr><th scope="row">Video</th><td>' + (feature.properties['Video'] !== null ? Autolinker.link(String(feature.properties['Video'])) : '') + '</td></tr><tr><th scope="row">Medien</th><td>' + (feature.properties['Medien'] !== null ? Autolinker.link(String(feature.properties['Medien'])) : '') + '</td></tr><tr><th scope="row">Overdrive</th><td>' + (feature.properties['Overdrive'] !== null ? Autolinker.link(String(feature.properties['Overdrive'])) : '') + '</td></tr><tr><th scope="row">Freegal</th><td>' + (feature.properties['Freegal'] !== null ? Autolinker.link(String(feature.properties['Freegal'])) : '') + '</td></tr><tr><th scope="row">Sonstiges</th><td>' + (feature.properties['Sonstiges'] !== null ? Autolinker.link(String(feature.properties['Sonstiges'])) : '') + '</td></tr><tr><th scope="row">Stand</th><td>' + (feature.properties['Stand'] !== null ? Autolinker.link(String(feature.properties['Stand'])) : '') + '</td></tr><tr><th scope="row">Stadt Lat</th><td>' + (feature.properties['Stadt Lat'] !== null ? Autolinker.link(String(feature.properties['Stadt Lat'])) : '') + '</td></tr><tr><th scope="row">Stadt Long</th><td>' + (feature.properties['Stadt Long'] !== null ? Autolinker.link(String(feature.properties['Stadt Long'])) : '') + '</td></tr><tr><th scope="row">Anschr</th><td>' + (feature.properties['Anschr'] !== null ? Autolinker.link(String(feature.properties['Anschr'])) : '') + '</td></tr><tr><th scope="row">tel</th><td>' + (feature.properties['tel'] !== null ? Autolinker.link(String(feature.properties['tel'])) : '') + '</td></tr><tr><th scope="row">web</th><td>' + (feature.properties['web'] !== null ? Autolinker.link(String(feature.properties['web'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function doStyleonleihen1701031(feature) {
+			switch (feature.properties.VB) {
+                case '247online-bibliothek':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e32ad4',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'augsburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#0fa3d8',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'barnim':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cf3046',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bergischemedien':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#c95183',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bergische-onleihe':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6deb12',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'berlin':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#8c77f0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'biblio24':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#545cee',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'biblioplus-digital':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#de846b',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bibload':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#2aa4e1',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bibo-on':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#3fd2c9',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'Biene':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#76d5d4',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bistumspeyer':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e9616c',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bodensee-oberschwaben':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#1bd741',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'boeblingen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#20d519',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'braunschweig':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d5ea74',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bremen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e2d921',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'bremerhaven':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cf1a99',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'chemnitz':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#b02ce0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'darmstadt':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#a75edf',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'digibobb':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cd6c8a',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'dreilaendereck':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d10cd7',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'dresden':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#96e625',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'e-ausleihe-franken':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#2e6dea',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ebib':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#9054eb',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ebib2go':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#5cef81',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ebook-owl':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#69dc33',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'elbe-elster-bibnet':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#667dd0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'emedienbayern':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#667dd0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'e-medien-franken':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#eb5557',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'enio24':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#2b74cc',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'frankfurt':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#dae786',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'freiburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#32c80c',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'friedrichshafen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ed3b68',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'goettingen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#c2e87c',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'hamburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d49f4a',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'hannover':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#3798d4',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'havelland':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e28762',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'heilbronn':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e0745f',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'hellwegsauerland':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d4ab14',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'hoppegarten':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#46e55e',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'hr':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ea23d0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'karlsruhe':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ec68cb',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'lauchringen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#8484e9',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'lb':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ebb063',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'leihbook':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#69d9df',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'leipzigerraum':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#41cdbd',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'leo-nord':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#66bfc9',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'leo-sued':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#430cce',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'libell-e-drei':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6fbbd0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'libelle-e-sued':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#db7365',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'libell-e-nord':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#c5c819',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'libell-e-sued':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#76da66',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'lies-e':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#7adc9e',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'los24':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6bdd9a',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'mecklenburg-vorpommern':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6bdd9a',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'metropolbib':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#8cc0e8',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'mol':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#58e9b7',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'more':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#58e9b7',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'muensterload':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ef67a7',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'nbib24':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#43dc35',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'neckar-alb':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#bde55e',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'netbib24':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#4e5cd5',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'neuhausenfildern':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e36613',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'niederbayern-oberpfalz':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#dde658',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'niederlausitz':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#351ee3',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'oberhavel':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cc228e',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'oldenburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#b6e67f',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleihe-dahme-spreewald':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ec73d6',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleihe-erft':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e32b8d',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleihe-oberlausitz':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#33edc2',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleiheregio':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#54cc2c',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleihesaar':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#af51da',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'onleiheverbundhessen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6d7ed1',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'opr':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#4f46c9',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ostalb-onleihe':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e34d82',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'owl':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#1abfe0',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'pforzheim':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#c8b965',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'plauen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#bf25cd',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'prignitz':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#20d630',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'radolfzell':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#9135e6',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'region-aachen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cf33ea',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'rems-murr':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#2dcd82',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'rhein-sieg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#cb8d10',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'rlp':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#458ace',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'rutesheim':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#0e46d1',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'salzgitter':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#6ace8a',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'schleswig_holstein':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#7497d1',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'schwaben':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#8e0fd7',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'Schwalbe':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#a819cc',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'stuttgart':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#c2d681',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'suebo':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ca8f54',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'thuebibnet':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#a684e4',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'tostedt':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ef554f',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ueckermark':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d661a6',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'ulm':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#d56910',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'unterschleissheim':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#924ae9',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_brandenburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#73cdb2',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_burghausen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#ec8856',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_franken':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e8143b',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_ostbayern':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#5adc99',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_ruhrgebiet':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#e5b940',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'verbund_singen':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#81e028',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'wittmund':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#df41dd',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'wolfsburg':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#4715ea',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                case 'zwickau':
+                    return {
+                    radius: 2.8,
+                    fillColor: '#5ccf19',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+                default:
+                    return {
+                    radius: 2.8,
+                    fillColor: '#12c918',
+                    color: '#000000',
+                    weight: 0.0,
+                    opacity: 1.0,
+                    dashArray: '',
+                    fillOpacity: '1.0',
+                };
+                break;
+            }
+        }
+        var json_onleihen1701031JSON = new L.geoJson(json_onleihen1701031, {
+            onEachFeature: pop_onleihen1701031,
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, doStyleonleihen1701031(feature))
+            }
+        });
+        layerOrder[layerOrder.length] = json_onleihen1701031JSON;
+
+        bounds_group.addLayer(json_onleihen1701031JSON);
+        initialOrder[initialOrder.length] = json_onleihen1701031JSON;
+        feature_group.addLayer(json_onleihen1701031JSON);
+        raster_group.addTo(map);
+        feature_group.addTo(map);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        stackLayers();
+        map.on('overlayadd', restackLayers);
+        </script>
+    </body>
+</html>
