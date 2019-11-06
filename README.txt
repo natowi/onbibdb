@@ -1,10 +1,12 @@
 https://natowi.github.io/onbibdb/
 
 Diese Datenbank zu allen deutschen Onleihen wurde 2016 und 2017 erstellt.
-Sie enthält Informationen zum Standort, Namen, Medienzahl, Bücherzahl pro Genre, Links und Verbundinformationen.
+Sie enthÃ¤lt Informationen zum Standort, Namen, Medienzahl, BÃ¼cherzahl pro Genre, Links und Verbundinformationen.
 Die interaktive Karte wurde mit QGIS und dem QGIS2web Plugin erstellt.
 
 Die CSV Tabelle befindet sich im onbibdb-source Ordner.
+
+Update 2019: aktualisierte Listen: onleihen, overdrive, nml, ciando, munzinger
 
 Lizenz: Attribution 3.0 Unported (CC BY 3.0), natowi 2016-2019 https://github.com/natowi/onbibdb
 
@@ -16,6 +18,8 @@ It contains information like location, name, content size by topic and library c
 Interactive map created with QGIS and QGIS2web Plugin.
 
 The original csv table can be found in the onbibdb-source folder.
+
+Update 2019: updated tables: onleihen, overdrive, nml, ciando, munzinger
 
 License: Attribution 3.0 Unported (CC BY 3.0), natowi 2016-2019 https://github.com/natowi/onbibdb
 
