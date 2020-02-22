@@ -46,3 +46,6 @@ Credits:
 		Respond.js (j.mp/respondjs)
 		Scrollex (@ajlkn)
 		Skel (skel.io)
+
+---
+To-Do: providing dataset as geojson https://help.github.com/en/github/managing-files-in-a-repository/mapping-geojson-files-on-github
