@@ -48,4 +48,4 @@ Credits:
 		Skel (skel.io)
 
 ---
-To-Do: providing dataset as geojson https://help.github.com/en/github/managing-files-in-a-repository/mapping-geojson-files-on-github
+To-Do: providing dataset as geojson https://help.github.com/en/github/managing-files-in-a-repository/mapping-geojson-files-on-github (requires geocoding some cities)
