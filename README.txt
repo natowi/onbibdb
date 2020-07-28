@@ -49,3 +49,7 @@ Credits:
 
 ---
 To-Do: providing dataset as geojson https://help.github.com/en/github/managing-files-in-a-repository/mapping-geojson-files-on-github (requires geocoding some cities)
+
+
+---
+For official library statistics see https://www.bibliotheksstatistik.de/
